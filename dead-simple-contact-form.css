@@ -10,40 +10,44 @@
 	float: left;
 	width: 100%;
 	font-weight: bold;
-	line-height: 1.5rem;
+	line-height: 1.5;
 }
-.dead-simple-contact-form input, 
+.dead-simple-contact-form input[type="text"], 
+.dead-simple-contact-form input[type="email"], 
 .dead-simple-contact-form textarea {
 	float: left;
 	clear: both;
 	margin-bottom: 1.5rem;
 	border-radius: 0;
 }
-.dead-simple-contact-form input {
+.dead-simple-contact-form input[type="text"], 
+.dead-simple-contact-form input[type="email"] {
 	width: 70%;
-	height: 1.5rem;
-	line-height: 1rem;
-	padding-top: 0.25rem;
+	min-height: 1.5rem;
+	line-height: 1.5;
 }
 .dead-simple-contact-form textarea {
 	width: 100%;
-	height: 6rem;
+	height: 10rem;
 }
 .dead-simple-contact-form .humanity-check {
 	clear: both;
 	margin-bottom: 1.5rem;
 }
-.dead-simple-contact-form .humanity-check input {
+.dead-simple-contact-form .humanity-check input[type="number"] {
 	width: 50px;
 	clear: left;
+	float: left;
 	text-align: center;
 	margin-right: 2px;
+	min-height: 1.5rem;
+	line-height: 1.5;
 }
 .dead-simple-contact-form input[type="submit"] {
 	width: 20%;
-	height: 1.5rem;
-	line-height: 1.5rem;
-	padding: 0;
+	min-height: 1.5rem;
+	line-height: 1.5;
+	padding: .75rem;
 }
 @media( max-width: 1050px ) {
 	.dead-simple-contact-form {
@@ -65,19 +69,20 @@
 	float: left;
 	width: 100%;
 	font-weight: bold;
-	line-height: 1.5rem;
+	line-height: 1.5;
 }
-.widget .dead-simple-contact-form input, 
+.widget .dead-simple-contact-form input[type="text"], 
+.widget .dead-simple-contact-form input[type="email"], 
 .widget .dead-simple-contact-form textarea {
 	float: left;
 	clear: both;
 	margin-bottom: 1.5rem;
 }
-.widget .dead-simple-contact-form input {
+.widget .dead-simple-contact-form input[type="text"], 
+.widget .dead-simple-contact-form input[type="email"] {
 	width: 70%;
-	height: 1.5rem;
-	line-height: 1rem;
-	padding-top: 0.25rem;
+	min-height: 1.5rem;
+	line-height: 1;
 }
 .widget .dead-simple-contact-form textarea {
 	width: 100%;
@@ -87,7 +92,7 @@
 	clear: both;
 	margin-bottom: 1.5rem;
 }
-.widget .dead-simple-contact-form .humanity-check input {
+.widget .dead-simple-contact-form .humanity-check input[type="number"] {
 	width: 50px;
 	clear: left;
 	text-align: center;
@@ -96,6 +101,6 @@
 .widget .dead-simple-contact-form input[type="submit"] {
 	width: 40%;
 	height: 1.5rem;
-	line-height: 1.5rem;
+	line-height: 1.5;
 	padding: 0;
 }
