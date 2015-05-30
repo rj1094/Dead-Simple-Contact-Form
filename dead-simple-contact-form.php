@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Dead Simple Contact Form
- * Plugin URI: http://github.com/rj1094/dead-simple-contact-form
+ * Plugin URI:  TO BE ADDED WHEN PURCHASED
  * Description: A ridiculously simple way to implement a basic comment form.
- * Version: 0.6
+ * Version: 0.5
  * Author: RJ Hallsted
- * Author URI: http://rjhallsted.com/
+ * Author URI: TO BE ADDED WHEN PURCHASED
  * License: GPL2
  */
 
@@ -17,7 +17,7 @@ function dead_simple_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'dead_simple_enqueue_styles' );
 
-add_shortcode( 'dead_simple_contact_form', 'dead_simple_contact_form' );
+add_shortcode( 'dead-simple-contact-form', 'dead_simple_contact_form' );
 function dead_simple_contact_form() {
 	/*
 	 * This is the function to call in the theme to
@@ -39,9 +39,8 @@ function dead_simple_contact_form() {
 	 * * Dead_Simple_Contact_Form->determine_response_message();
 	 * * * Dead_Simple_Contact_Form->send_message();
 	 * * Dead_Simple_Contact_Form->generate_response();
-	 * * * Dead_Simple_Contact_Form->response_output();
-	 * * * * and possibly - 
-	 * * * * Dead_Simple_Contact_Form->display_form();
+	 * * * and possibly - 
+	 * * * Dead_Simple_Contact_Form->display_form();
 	*/
 	$form = new Dead_Simple_Contact_Form();
 	$form_output = $form->handle_contact_form( $_POST );
@@ -51,17 +50,13 @@ function dead_simple_contact_form() {
 
 class Dead_Simple_Contact_Form {
 	//Initialize all of the private variables.
-	private $name				= null;
-	private $email				= null;
-	private $message			= null;
+	private $name 				= null;
+	private $email 				= null;
+	private $message 			= null;
 	private $humanity_submitted	= null;
 	private $humanity_addend	= null;
-	private $humanity_sum		= null;
+	private $humanity_sum 		= null;
 	private $submitted			= null;
-<<<<<<< HEAD
-=======
-	private $form_count			= null;
->>>>>>> 0a8f90f2ec69b116bf302cabb34fc1e276593338
 
 	function __constructor() {
 		//Define the variables using the $_POST variables
@@ -101,7 +96,7 @@ class Dead_Simple_Contact_Form {
 
 		$humanity_output = '<div class="humanity-check">';
 			$humanity_output .= '<label for="dead_simple_message_human">Are you human?</label>';
-			$humanity_output .= '<input type="number" name="dead_simple_message_human" autocomplete="off" required><div class="math-text">  + ' . $this->humanity_addend . ' = ' . $this->humanity_sum . '</div>';
+			$humanity_output .= '<input type="num" name="dead_simple_message_human" autocomplete="off" required><div class="math-text">  + ' . $this->humanity_addend . ' = ' . $this->humanity_sum . '</div>';
 		$humanity_output .= '</div>';
 
 		return $humanity_output;
@@ -118,10 +113,10 @@ class Dead_Simple_Contact_Form {
 			$form_values = $_POST;
 		}
 		$this->name 				= $form_values[ 'dead_simple_message_name' ];
-		$this->email				= $form_values[ 'dead_simple_message_email' ];
-		$this->message				= $form_values[ 'dead_simple_message_text' ];
+		$this->email 				= $form_values[ 'dead_simple_message_email' ];
+		$this->message 				= $form_values[ 'dead_simple_message_text' ];
 		$this->humanity_submitted	= $form_values[ 'dead_simple_message_human' ];
-		$this->submitted			= $form_values[ 'dead_simple_submitted' ];
+		$this->submitted 			= $form_values[ 'dead_simple_submitted' ];
 
 		/*
 		 * Set humanity check variables using session variables if the exist. If not,
@@ -174,7 +169,7 @@ class Dead_Simple_Contact_Form {
 		return $response_message;
 	}
 	function generate_response( $message ) {
-		//Determine the necessary response
+		//Determine the necessary response, and output it.
 
 		//response text
 		$responses[ 'not_human' ] 		= "Excuse me, but apparently you're not a human. Would you please correct that?";
@@ -183,20 +178,13 @@ class Dead_Simple_Contact_Form {
 		$responses[ 'message_unsent' ]	= "Woops, the message wasn't sent! Please try again.";
 		$responses[ 'message_sent' ] 	= "Thanks for contacting us! We'll be in touch soon!";
 
-		$is_successful = ( $message == 'message_sent' ) ? true : false;
+		$response_type = ( $message == 'message_sent' ) ? 'success' : 'error';
 
 		$response_output = "<div class='{$response_type}'>{$responses[ $message ]}</div>";
+		if( $response_type == 'error' )
+			$response_output .= $this->display_form();
 
-		return $this->response_output( $is_successful, $response[ $message ] );
-	}
-	function response_output( $is_successful, $message ) {
-		if( ! $is_successful ) {
-			$output = "<div class='success'>{$message}</div>" . $this->display_form();
-		} else {
-			$output = "<div class='error'>{$message}</div>";
-		}
-
-		return $output;
+		return $response_output;
 	}
 	function handle_contact_form( $form_values ) {
 		/*
