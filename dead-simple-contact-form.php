@@ -32,7 +32,8 @@ function dead_simple_contact_form() {
 	 * Dead_Simple_Contact_Form->handle_contact_form();
 	 * * either -
 	 * * Dead_Simple_Contact_Form->display_form();
-	 * * * Dead_Simple_Contact_Form->humanity_check();
+	 * * * Dead_Simple_Contact_Form->get_form_count();
+	 * * * Dead_Simple_Contact_Form->display_humanity_check();
 	 * * or -
 	 * * Dead_Simple_Contact_Form->set_variables()
 	 * * Dead_Simple_Contact_Form->determine_response_message();
@@ -78,7 +79,7 @@ class Dead_Simple_Contact_Form {
 			$output .= '<label for="dead_simple_message_text">Message</label>';
 			$output .= '<textarea placeholder="How can we help you?" name="dead_simple_message_text" id="contact-message" cols="15" rows="4" required>' . esc_textarea ( $this->message ) . '</textarea>';
 
-			$output .= $this->humanity_check();
+			$output .= $this->display_humanity_check();
 
 			$output .= '<input type="hidden" name="dead_simple_submitted" value="1">';
 			$output .= '<input type="submit" value="Send">';
@@ -86,10 +87,10 @@ class Dead_Simple_Contact_Form {
 
 		return $output;
 	}
-	function humanity_check() {
+	function display_humanity_check() {
 		//print humanity check html and reset session variables for security purposes.
-		$_SESSION[ 'dead_simple_humanity_sum' ] = mt_rand( 0, 20 );
-		$_SESSION[ 'dead_simple_humanity_addend' ] = mt_rand( 0, $_SESSION[ 'dead_simple_humanity_sum' ] );
+		$_SESSION[ 'dead_simple_humanity_sum' ] = mt_rand( 2, 20 );
+		$_SESSION[ 'dead_simple_humanity_addend' ] = mt_rand( 1, $_SESSION[ 'dead_simple_humanity_sum' ] );
 		$this->humanity_sum = $_SESSION[ 'dead_simple_humanity_sum' ];
 		$this->humanity_addend = $_SESSION[ 'dead_simple_humanity_addend' ];
 
