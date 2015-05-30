@@ -15,7 +15,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 function dead_simple_enqueue_styles() {
 	wp_enqueue_style( 'dead-simple-contact-form-css', plugin_dir_url( __FILE__ ) . '/dead-simple-contact-form.css' );
 }
-add_action( 'init', 'dead_simple_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'dead_simple_enqueue_styles' );
 
 add_shortcode( 'dead-simple-contact-form', 'dead_simple_contact_form' );
 function dead_simple_contact_form() {
