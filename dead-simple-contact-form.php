@@ -56,27 +56,18 @@ class Dead_Simple_Contact_Form {
 	private $humanity_addend	= null;
 	private $humanity_sum 		= null;
 	private $submitted			= null;
-	private $form_count 		= null;
 
 	function __constructor() {
 		//Define the variables using the $_POST variables
 		$this->set_variables();
-
-		/*
-		 * Define $this->form_count. This is a global because on some pages, their may be more than one form present,
-		 * and we need seperate ID's and action urls.
-		 * This only needs to be defined once per form, and is global, so it is included here, in the constructor
-		 * instead of set_variables().
-		*/
-		global $contact_forms_on_page;
-		$contact_forms_on_page = ( isset( $contact_forms_on_page ) ) ? $contact_forms_on_page + 1 : 1;
-		$this->form_count 	= $contact_forms_on_page;
 	}
 	function display_form() {
 		//used to print the form HTML
 		global $post;
 
-		$output = '<form action="' . get_permalink( $post->ID ) . '#dead-simple-contact-form-' . $this->form_count . '" id="dead-simple-contact-form-' . $this->form_count . '" class="dead-simple-contact-form" method="post">';
+		$form_count = $this->get_form_count();
+
+		$output = '<form action="' . get_permalink( $post->ID ) . '#dead-simple-contact-form-' . $form_count . '" id="dead-simple-contact-form-' . $form_count . '" class="dead-simple-contact-form" method="post">';
 		
 			$output .= '<label for="dead_simple_message_name">Name</label>';
 			$output .= '<input type="text" placeholder="John Doe" name="dead_simple_message_name" value="' . esc_attr( $this->name ) . '" required>';
@@ -206,6 +197,18 @@ class Dead_Simple_Contact_Form {
 		}
 
 		return $handled_output;
+	}
+	function get_form_count() {
+		/*
+		 * Determine form count. This is a global because on some pages, their may be more than one form present,
+		 * and we need seperate ID's and action urls.
+		 */	
+		global $dscf_contact_forms_on_page;
+		if( $dscf_contact_forms_on_page != null ) {
+			$dscf_contact_forms_on_page = 0;
+		}
+		$dscf_contact_forms_on_page++;
+		return $dscf_contact_forms_on_page;
 	}
 }
 
